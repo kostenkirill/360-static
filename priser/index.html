@@ -79,6 +79,518 @@ var log_object = {"ajax_url":"\/wp-admin\/admin-ajax.php"};</script>
 <link rel="icon" href="/wp-content/uploads/2022/03/360Logo_cropp.png" sizes="192x192">
 <link rel="apple-touch-icon" href="/wp-content/uploads/2022/03/360Logo_cropp.png">
 <meta name="msapplication-TileImage" content="/wp-content/uploads/2022/03/360Logo_cropp.png">
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+crossorigin="anonymous"
+referrerpolicy="no-referrer"
+/>
+<style>* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+tr,
+td {
+  border: 1px solid #dfe1e5 !important;
+}
+th {
+  background: #f5f5f5;
+}
+td,
+th {
+  height: 50px;
+}
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 10px;
+  empty-cells: show;
+}
+td,
+th {
+  text-align: left;
+}
+td + td,
+th + th {
+  text-align: center;
+}
+td.default {
+  display: table-cell;
+}
+.sep {
+  background: #f5f5f5;
+  font-weight: bold;
+  height: 35px !important;
+}
+.txt-l {
+  font-size: 28px;
+  font-weight: bold;
+}
+.txt-2 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+.txt-top {
+  position: relative;
+  top: -9px;
+  left: -2px;
+}
+.tick {
+  font-size: 18px !important;
+  color: #2ca01c !important;
+}
+.hide {
+  border: 0;
+  background: none;
+}
+
+@media (min-width: 760px) {
+  .hide-lg {
+    display: none;
+  }
+  .fa-question-circle {
+    display: none;
+  }
+  td,
+  th {
+    display: table-cell !important;
+  }
+  td,
+  th {
+    width: 330px;
+  }
+  td + td,
+  th + th {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  table {
+    width: 100%;
+    border: none;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr:nth-of-type(2n) {
+    background-color: inherit;
+  }
+
+  tr td:first-child {
+    background: #f0f0f0;
+    font-size: 1.1em;
+    padding: 14px;
+    height: auto;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+  }
+  .table-h1 {
+    display: none;
+  }
+  .table-h2 {
+    padding: 14px 0;
+  }
+  .fa-question-circle {
+    padding-top: 5px;
+    padding-right: 20px;
+    display: block;
+  }
+  .fa-check {
+    padding-top: 3px;
+  }
+  tr:hover {
+    background-color: #e7e4e48f;
+    transition: background-color 0.5s;
+  }
+
+  .sep {
+    padding-left: 0;
+    display: none;
+  }
+
+  tbody td:before {
+    content: attr(data-th);
+    display: block;
+    text-align: center;
+  }
+}
+tbody tr {
+  margin-top: 25px;
+}</style>
+<style>table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  font-weight: bold;
+}
+td,
+th {
+  padding: 10px 6px 6px 6px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+@media only screen and (max-width: 760px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 85%;
+    min-height: 20px;
+  }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    padding-top: 7px;
+    left: 14px;
+    width: 0%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  td:nth-of-type(1):before {
+    content: '';
+  }
+  td:nth-of-type(2):before {
+    content: 'Micro';
+  }
+  td:nth-of-type(3):before {
+    content: 'Basic';
+  }
+  td:nth-of-type(4):before {
+    content: 'Plus';
+  }
+  td:nth-of-type(5):before {
+    content: 'Advanced';
+  }
+  td:nth-of-type(6):before {
+    content: 'Enterprise';
+  }
+}</style>
+<style>
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  padding: 30px;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s linear 0.1s, opacity 0.3s ease;
+}
+.jsModalTrigger {
+  cursor: pointer;
+}
+
+#modal_txt {
+  margin-top: 30px;
+}
+.modal.open {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 21;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background: none;
+  font-size: 24px;
+  color: #747474;
+  font-weight: bold;
+}
+.modal:hover {
+  color: #000;
+}
+.modal__container {
+  position: relative;
+  z-index: 22;
+  width: 80%;
+  height: 30%;
+  text-align: center;
+  font-size: 1.5em;
+  top: 40%;
+  transform: translateY(-50%);
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  text-align: center;
+}
+a[id='#jsModal'],
+a[id='#jsModal']:active,
+a[id='#jsModal']:focus {
+  outline: none;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px dashed;
+}
+</style>
+<style>
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+tr,
+td {
+  border: 1px solid #dfe1e5 !important;
+}
+th {
+  background: #f5f5f5;
+}
+td,
+th {
+  height: 50px;
+}
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 10px;
+  empty-cells: show;
+}
+td,
+th {
+  text-align: left;
+}
+td + td,
+th + th {
+  text-align: center;
+}
+td.default {
+  display: table-cell;
+}
+.sep {
+  background: #f5f5f5;
+  font-weight: bold;
+  height: 35px !important;
+}
+.txt-l {
+  font-size: 28px;
+  font-weight: bold;
+}
+.txt-2 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+.txt-top {
+  position: relative;
+  top: -9px;
+  left: -2px;
+}
+.tick {
+  font-size: 18px !important;
+  color: #2ca01c !important;
+}
+.hide {
+  border: 0;
+  background: none;
+}
+
+@media (min-width: 760px) {
+  .hide-lg {
+    display: none;
+  }
+  .fa-question-circle {
+    display: none;
+  }
+  td,
+  th {
+    display: table-cell !important;
+  }
+  td,
+  th {
+    width: 330px;
+  }
+  td + td,
+  th + th {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  table {
+    width: 100%;
+    border: none;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr:nth-of-type(2n) {
+    background-color: inherit;
+  }
+
+  tr td:first-child {
+    background: #f0f0f0;
+    font-size: 1.1em;
+    padding: 14px;
+    height: auto;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+  }
+  .table-h1 {
+    display: none;
+  }
+  .table-h2 {
+    padding: 14px 0;
+  }
+  .fa-question-circle {
+    padding-top: 5px;
+    padding-right: 20px;
+    display: block;
+  }
+  .fa-check {
+    padding-top: 3px;
+  }
+  tr:hover {
+    background-color: #e7e4e48f;
+    transition: background-color 0.5s;
+  }
+
+  .sep {
+    padding-left: 0;
+    display: none;
+  }
+
+  tbody td:before {
+    content: attr(data-th);
+    display: block;
+    text-align: center;
+  }
+}
+tbody tr {
+  margin-top: 25px;
+}
+</style>
+<style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  font-weight: bold;
+}
+td,
+th {
+  padding: 10px 6px 6px 6px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+@media only screen and (max-width: 760px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 85%;
+    min-height: 20px;
+  }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    padding-top: 7px;
+    left: 14px;
+    width: 0%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  td:nth-of-type(1):before {
+    content: '';
+  }
+  td:nth-of-type(2):before {
+    content: 'Micro';
+  }
+  td:nth-of-type(3):before {
+    content: 'Basic';
+  }
+  td:nth-of-type(4):before {
+    content: 'Plus';
+  }
+  td:nth-of-type(5):before {
+    content: 'Advanced';
+  }
+  td:nth-of-type(6):before {
+    content: 'Enterprise';
+  }
+}
+</style>
 <style id="wp-custom-css">.eael-pricing.style-1 .eael-pricing-item .body ul li {
 	padding: 2px 0px !important;	
 	border-bottom: 0 !important;
@@ -2261,6 +2773,366 @@ Gå til indholdet</a>
 </div>
 </div>
 </section>
+<section class="elementor-section elementor-top-section elementor-element elementor-element-0a1b7dd elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="0a1b7dd" data-element_type="section">
+  <div class="elementor-container elementor-column-gap-default">
+  <div class="elementor-row">
+  <div class="elementor-column elementor-col-20 elementor-top-column elementor-element elementor-element-ad0faa9" data-id="ad0faa9" data-element_type="column">
+  <div class="elementor-column-wrap elementor-element-populated">
+  <div class="elementor-widget-wrap">
+  <div class="elementor-element elementor-element-cc1100d elementor-widget elementor-widget-price-table" data-id="cc1100d" data-element_type="widget" data-widget_type="price-table.default">
+  <div class="elementor-widget-container">
+  <div class="elementor-price-table">
+  <div class="elementor-price-table__header">
+  <h3 class="elementor-price-table__heading">
+  MICRO </h3>
+  </div>
+  <div class="elementor-price-table__price">
+  <span class="elementor-price-table__currency">&#128;</span> <span class="elementor-price-table__integer-part">
+  25 </span>
+  <span class="elementor-price-table__period elementor-typo-excluded">Monthly/ per user</span> </div>
+  <ul class="elementor-price-table__features-list">
+  <li class="elementor-repeater-item-7e92e90">
+  <div class="elementor-price-table__feature-inner">
+  <i aria-hidden="true" class="fas fa-check-circle"></i> <span>
+  <b>CRM FUNCTIONALITY AND </b> </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-ded4f04">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Leads & Customers </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-a9082e9">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Emails & Letters </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-f8d2230">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Calendar & Activities </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-39eacab">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Microsoft Office Integration </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-118392b">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Document Management </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-f17ff4a">
+  <div class="elementor-price-table__feature-inner">
+  <i aria-hidden="true" class="far fa-check-circle"></i> <span>
+  Email Support <br><br> </span>
+  </div>
+  </li>
+  </ul>
+  <div class="elementor-price-table__footer">
+  <a class="elementor-price-table__button elementor-button elementor-size-md" href="/plans/get-quotation/">
+  Get quotation </a>
+  <div class="elementor-price-table__additional_info">
+  MIN 2 USERS </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="elementor-column elementor-col-20 elementor-top-column elementor-element elementor-element-8477a9c" data-id="8477a9c" data-element_type="column">
+  <div class="elementor-column-wrap elementor-element-populated">
+  <div class="elementor-widget-wrap">
+  <div class="elementor-element elementor-element-05294c9 elementor-widget elementor-widget-price-table" data-id="05294c9" data-element_type="widget" data-widget_type="price-table.default">
+  <div class="elementor-widget-container">
+  <div class="elementor-price-table">
+  <div class="elementor-price-table__header">
+  <h3 class="elementor-price-table__heading">
+  BASIC </h3>
+  </div>
+  <div class="elementor-price-table__price">
+  <span class="elementor-price-table__currency">&#128;</span> <span class="elementor-price-table__integer-part">
+  35 </span>
+  <span class="elementor-price-table__period elementor-typo-excluded">Monthly/ per user</span> </div>
+  <ul class="elementor-price-table__features-list">
+  <li class="elementor-repeater-item-7e92e90">
+  <div class="elementor-price-table__feature-inner">
+  <i aria-hidden="true" class="fas fa-check-circle"></i> <span>
+  <b>EVERYTHING IN MICRO AND </b> </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-ded4f04">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Quotes &amp; Order Management </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-a9082e9">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Campaigns, Emails & Letters </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-f8d2230">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Calendar & Activities </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-39eacab">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Case and Sales Management </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-118392b">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Transport and Expenses </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-f17ff4a">
+  <div class="elementor-price-table__feature-inner">
+  <i aria-hidden="true" class="far fa-check-circle"></i> <span>
+  Phone, Chat & Email Support </span>
+  </div>
+  </li>
+  </ul>
+  <div class="elementor-price-table__footer">
+  <a class="elementor-price-table__button elementor-button elementor-size-md" href="/plans/get-quotation/">
+  Get quotation </a>
+  <div class="elementor-price-table__additional_info">
+  MIN 2 USERS </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="elementor-column elementor-col-20 elementor-top-column elementor-element elementor-element-2953c15" data-id="2953c15" data-element_type="column">
+  <div class="elementor-column-wrap elementor-element-populated">
+  <div class="elementor-widget-wrap">
+  <div class="elementor-element elementor-element-e914b98 elementor-widget elementor-widget-price-table" data-id="e914b98" data-element_type="widget" data-widget_type="price-table.default">
+  <div class="elementor-widget-container">
+  <div class="elementor-price-table">
+  <div class="elementor-price-table__header">
+  <h3 class="elementor-price-table__heading">
+  PLUS </h3>
+  </div>
+  <div class="elementor-price-table__price">
+  <span class="elementor-price-table__currency">&#128;</span> <span class="elementor-price-table__integer-part">
+  45 </span>
+  <span class="elementor-price-table__period elementor-typo-excluded">Monthly/ per user</span> </div>
+  <ul class="elementor-price-table__features-list">
+  <li class="elementor-repeater-item-7e92e90">
+  <div class="elementor-price-table__feature-inner">
+  <i aria-hidden="true" class="fas fa-check-circle"></i> <span>
+  <b>EVERYTHING IN BASIC </b><b>AND</b><br> </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-ded4f04">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Invoicing </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-e6ea544">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Contract Management </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-534bbf1">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Expense Reimbursements </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-e9f4621">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Helpdesk Management </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-012fc79">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Equipment Registration </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-f17ff4a">
+  <div class="elementor-price-table__feature-inner">
+  <i aria-hidden="true" class="far fa-check-circle"></i> <span>
+  Phone, Chat & Email Support </span>
+  </div>
+  </li>
+  </ul>
+  <div class="elementor-price-table__footer">
+  <a class="elementor-price-table__button elementor-button elementor-size-md" href="/plans/get-quotation/">
+  Get quotation </a>
+  <div class="elementor-price-table__additional_info">
+  MIN 3 USERS </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="elementor-column elementor-col-20 elementor-top-column elementor-element elementor-element-3412b9e" data-id="3412b9e" data-element_type="column">
+  <div class="elementor-column-wrap elementor-element-populated">
+  <div class="elementor-widget-wrap">
+  <div class="elementor-element elementor-element-c849004 elementor-invisible elementor-widget elementor-widget-price-table" data-id="c849004" data-element_type="widget" data-settings="{&quot;_animation&quot;:&quot;bounce&quot;}" data-widget_type="price-table.default">
+  <div class="elementor-widget-container">
+  <div class="elementor-price-table">
+  <div class="elementor-price-table__header">
+  <h3 class="elementor-price-table__heading">
+  ADVANCED </h3>
+  </div>
+  <div class="elementor-price-table__price">
+  <span class="elementor-price-table__currency">&#128;</span> <span class="elementor-price-table__integer-part">
+  55 </span>
+  <span class="elementor-price-table__period elementor-typo-excluded">Monthly/ per user</span> </div>
+  <ul class="elementor-price-table__features-list">
+  <li class="elementor-repeater-item-7e92e90">
+  <div class="elementor-price-table__feature-inner">
+  <i aria-hidden="true" class="fas fa-check-circle"></i> <span>
+  <b>EVERYTHING IN PLUS</b><b> AND</b> </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-76e6fbb">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Subscription-based Invoicing </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-fb49e7a">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Financial Overviews </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-99d658c">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Supplier Management </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-ded4f04">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Purchase Invoices </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-f17f59f">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  API Access </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-156fad9">
+  <div class="elementor-price-table__feature-inner">
+  <i aria-hidden="true" class="far fa-check-circle"></i> <span>
+  Phone, Chat &amp; Email Support </span>
+  </div>
+  </li>
+  </ul>
+  <div class="elementor-price-table__footer">
+  <a class="elementor-price-table__button elementor-button elementor-size-md" href="/plans/get-quotation/">
+  Get quotation </a>
+  <div class="elementor-price-table__additional_info">
+  MIN 5 USERS </div>
+  </div>
+  </div>
+  <div class="elementor-price-table__ribbon">
+  <div class="elementor-price-table__ribbon-inner">
+  Popular </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="elementor-column elementor-col-20 elementor-top-column elementor-element elementor-element-bb8c333" data-id="bb8c333" data-element_type="column">
+  <div class="elementor-column-wrap elementor-element-populated">
+  <div class="elementor-widget-wrap">
+  <div class="elementor-element elementor-element-e9fe6c8 elementor-widget elementor-widget-price-table" data-id="e9fe6c8" data-element_type="widget" data-widget_type="price-table.default">
+  <div class="elementor-widget-container">
+  <div class="elementor-price-table">
+  <div class="elementor-price-table__header">
+  <h3 class="elementor-price-table__heading">
+  ENTERPRISE </h3>
+  </div>
+  <div class="elementor-price-table__price">
+  <span class="elementor-price-table__currency">&#128;</span> <span class="elementor-price-table__integer-part">
+  70 </span>
+  <span class="elementor-price-table__period elementor-typo-excluded">Monthly/ per user</span> </div>
+  <ul class="elementor-price-table__features-list">
+  <li class="elementor-repeater-item-7e92e90">
+  <div class="elementor-price-table__feature-inner">
+  <i aria-hidden="true" class="fas fa-check-circle"></i> <span>
+  <b>EVERYTHING IN ADVANCED AND</b> </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-ded4f04">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Multiple Business Units </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-89a3a1e">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Currency Conversions </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-acd6914">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Multilanguage Support </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-5385ad4">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Active Directory Integration </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-9466bbf">
+  <div class="elementor-price-table__feature-inner">
+  <span>
+  Full Audit Logging </span>
+  </div>
+  </li>
+  <li class="elementor-repeater-item-f17ff4a">
+  <div class="elementor-price-table__feature-inner">
+  <i aria-hidden="true" class="far fa-check-circle"></i> <span>
+  Phone, Chat & Email Support </span>
+  </div>
+  </li>
+  </ul>
+  <div class="elementor-price-table__footer">
+  <a class="elementor-price-table__button elementor-button elementor-size-md" href="/plans/get-quotation/">
+  Get quotation </a>
+  <div class="elementor-price-table__additional_info">
+  MIN 10 USERS </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </section>
 <section class="elementor-section elementor-top-section elementor-element elementor-element-8b037e2 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="8b037e2" data-element_type="section">
 <div class="elementor-container elementor-column-gap-default">
 <div class="elementor-row">
@@ -2360,7 +3232,2025 @@ var delay = 100; setTimeout(function() {
 $('.elementor-tab-title').removeClass('elementor-active');
  $('.elementor-tab-content').css('display', 'none'); }, delay); 
 });</script>
-[elementor-template id = &#8220;9627&#8221;]</div>
+ <div id="jsModal" class="modal">
+  <div id="jsOverlay" class="modal__overlay"></div>
+  <div class="modal__container">
+    <p id="modal_txt">Modal window text</p>
+    <button id="jsModalClose" class="modal__close">&#10005;</button>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th class="hide"></th>
+      <th>Micro</th>
+      <th>Basis</th>
+      <th>Plus</th>
+      <th>Advanced</th>
+      <th>Enterprise</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="table-h1">
+      <td class="sep" colspan="6">Kunde- og emne kartotek</td>
+    </tr>
+
+    <tr>
+      <td>Firmaer og kontaktpersoner</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Link til LinkedIn</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Link til CVR</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Link til Google Maps</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Overførsel til Outlook kontakter</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Vis kunder på kort</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Vis kunder i nærheden</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Privatkundefunktioner</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Koncern hierarkier</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Kunde-ejer modul</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Underleverandørmodul</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <!-- ------ -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">CVR Interface</td>
+    </tr>
+    <tr>
+      <td>Stamoplysninger</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Nøglemedarbejdere</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Regnskaber (nøgletal)</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Regnskaber (PDF)</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Ejerskab</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Aktiviteter</td>
+    </tr>
+    <tr>
+      <td>Kalender</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>To do liste</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Flerbruger kalender</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Gantt overblik</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Overblik over afsluttede og planlagte aktiviteter</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Office 365 Kalender synkronisering</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Microsoft Exchange Kalender synkronisering</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Dokumenter</td>
+    </tr>
+    <tr>
+      <td>Arkiv på sager, aktiviteter, firmaer og kontakter</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Integration med Microsoft Office</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Sende e-mails via Outlook</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Danne Word og Excel dokumenter fra systemet</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Lagre e-mails og dokumenter</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Drag & drop af filer</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Sagsdokumentation</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Smartphone app til upload af sagsdokumentation</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>E-mail skabeloner</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Dokumentskabeloner</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>SMS skabeloner</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>API til upload af sagsdokumentation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Tilbud, og fakturaer på flere sprog</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Rapporter</td>
+    </tr>
+    <tr>
+      <td>Standard dashboards</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Standard rapporter</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Standard søgninger</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Custom søgninger</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Custom rapporter</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Eksport til Excel af alle lister</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Tilbudsgivning</td>
+    </tr>
+    <tr>
+      <td>PDF</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>E-mail</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Eget brevpapir</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Skabeloner</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Produktpakker/stykliste</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>e-signatur integration</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Contractbook integration</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+    </tr>
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Udgiftsregistrering</td>
+    </tr>
+    <tr>
+      <td>Registrer udgifter, parkering, broafgifter m.m.</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Kørselsregistrering</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Smartphone app til upload af bilag</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Import fra e-mail</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Automatisk beregning af km og tid</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>API til upload af bilag</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Salgsstyring</td>
+    </tr>
+    <tr>
+      <td>B2B</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>B2C</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Salgsbudgetter</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Forecasting</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Leads og Opportunities</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Interessenter</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Order tracking</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Pipelinestyring</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Pipeline fremdrift overblik</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Sælger Dashboard</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Time / Sagsstyring</td>
+    </tr>
+    <tr>
+      <td>Tidsregistrering</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Korrespondance</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Smartphone app til tidsregistrering</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Sagsopgaver/delsager</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Interessenter</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Kundespecifikke timepriser</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Klippekort</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Beregning af dækningsbidrag</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Marketing funktioner</td>
+    </tr>
+    <tr>
+      <td>Segmentering af virksomheder</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Segmentering af personer</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Brancher</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>ABC Profiler</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Multikoder</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Mailkoder</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Mailudsendelser - Outlook</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Mailudsendelser - MailChimp</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Varekartotek</td>
+    </tr>
+    <tr>
+      <td>Listepriser</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Kostpriser</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Rabatter på kundeniveau</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Lagerbeholdning</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Bestillinger</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Leverandør prislister</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Auto priser baseret på kostpriser + markup</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Indlæsning af elektroniske prisfiler</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Integration til økonomisystem</td>
+    </tr>
+    <tr>
+      <td>Opret ordre i Dinero</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Opret ordre i Billys Billing</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Opret tilbud i e-conomic</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Opret ordre i e-conomic</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Overførsel til e-conomic</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Overførsel til Microsoft Dynamics C5</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Overførsel til Microsoft Dynamics NAV</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Overførsel til Microsoft Dynamics AX</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Fakturering</td>
+    </tr>
+    <tr>
+      <td>PDF</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>E-mail</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>FI Kort</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>EAN (OIOUBL)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Sproom</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Mobilepay</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Stripe</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+    </tr>
+    <tr>
+      <td>Eget brevpapir</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Standard betingelser</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Specifikation af timer/sag ydelser</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Godkendelses-flow</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+    </tr>
+    <tr>
+      <td>Rykkerhåndtering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Inkasso integration</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Leverance</td>
+    </tr>
+    <tr>
+      <td>Følgesedler</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Pakkelabels (GLS)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Vareprøver</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Udstyrsregistrering</td>
+    </tr>
+    <tr>
+      <td>Leverandører og modeller</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Serienumre og garanti</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Installations- og udløbsdato</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Service</td>
+    </tr>
+    <tr>
+      <td>Helpdesk / Supportsystem</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Tickethåndtering</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Service & RMA håndtering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Konvertering af mail til supportticket</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Svarskabeloner</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Tidsregistrering</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>API til oprettelse af tickets</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Telefoni</td>
+    </tr>
+    <tr>
+      <td>Udgående opkald, integration med telefonisystem</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Indgående opkald, integration med telefonisystem</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Vis kundens navn på telefonen</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Egen PBX (CSTA)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Ringekampagner</td>
+    </tr>
+    <tr>
+      <td>Telemarketing og telesalg</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Ringelister</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Kørelister</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Mødebooking</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Udfaldskoder og statistik</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Genopkald</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Kontraktstyring</td>
+    </tr>
+    <tr>
+      <td>Vilkår, bindingsperiode, opsigelse</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Detaljerede kontraktlinjer</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Vedhæft indscannet kontrakt</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Advarsel inden udløb</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Reminder om genforhandling</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Dashboard med økonomi-overblik</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>e-signatur integration</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Contractbook integration</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+    </tr>
+    <tr>
+      <td>Periodiseringer</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Indexreguleringer</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Abonnementsfakturering</td>
+    </tr>
+    <tr>
+      <td>Faste aftaler</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Forbrugsafregnede aftaler</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Indexreguleringer</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Periodiseringer</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Købsfakturaer / kreditorfakturaer</td>
+    </tr>
+    <tr>
+      <td>Registrering af indkøb / vareforbrug per sag</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Import fra mail</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Import fra scan</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Import fra EAN</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Import fra Sproom</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Godkendelses-flow</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Betalingsfiler til netbank</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Bankafstemning</td>
+    </tr>
+    <tr>
+      <td>Import fra netbank - danske banker</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Import fra netbank - udenlandske banker</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Autoudligning - debitor</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Autoudligning - kreditor</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Likviditetsoverblik</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Måleraflæsninger / metering</td>
+    </tr>
+    <tr>
+      <td>Forbrugstal fra fil</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>API til upload af forbrugstal</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Fakturering af forbrug</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Fakturering af overforbrug</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Aconto fakturering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Indtastning på www</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>E-mail reminder</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Medarbejderstyring</td>
+    </tr>
+    <tr>
+      <td>Medarbejderkartotek</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Stamoplysninger på medarbejdere</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Registrering af ferie og sygedage</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Kilometer godtgørelse</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Diæter</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Udlæg</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Udlæsning til Danløn</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Udlæsning til Dataløn</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Feriekort</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Data import</td>
+    </tr>
+    <tr>
+      <td>Web Direct (Experian)</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>BusinessInsight (Experian)</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Krak Markedsdata</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Navne & Numre Erhverv</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>360 Erhvervsdata</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Soliditet / Bisnode</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Dun & Bradstreet</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Købmandsstanden / KOB</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Lasso X</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+    </tr>
+    <tr>
+      <td>Fil med P-numre</td>
+      <td></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+    </tr>
+    <tr>
+      <td>Fil med CVR-numre</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+    </tr>
+    <tr>
+      <td>Custom data imports</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick far fa-circle"></i></td>
+      <td><i class="tick far fa-circle"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Sikkerhed</td>
+    </tr>
+    <tr>
+      <td>Database i sikkerheds-certificeret datacenter</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Krypteret forbindelse til database</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Databehandleraftale</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Database placeret i EU</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Database placeret i DK</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Filer på Dropbox</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Filer på Microsoft OneDrive</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Filer på Microsoft OneDrive for Business</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Filer på Google Drive</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Filer på egen server</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Client side kryptering af fortrolige oplysninger</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Backup til egen server</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Active Directory integration</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Simple Audit Log</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Fuld Audit Log</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr
+      onclick="openModal('Vi benytter \'OATH-TOTP\' standarden som fungerer sammen med bla. Microsoft Authenticator, Authy, Google Authenticator m.v.')"
+      class="jsModalTrigger"
+    >
+      <td>
+        <a id="#jsModal">Multi-faktor godkendelse</a>
+        <i class="far fa-question-circle"></i>
+      </td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+
+    <!-- 
+        ---- 
+      -->
+    <tr class="table-h1">
+      <td colspan="6" class="sep">Teknik</td>
+    </tr>
+    <tr>
+      <td>Egen dedikeret database</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr
+      class="jsModalTrigger"
+      onclick="openModal('Vi tager en komplet backup hver nat')"
+    >
+      <td>
+        <a id="#jsModal">Daglig backup</a>
+        <i class="far fa-question-circle"></i>
+      </td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr
+      onclick="openModal('To enable Point-in-time restoring, backups are kept for 30 day')"
+      class="jsModalTrigger"
+    >
+      <td>
+        <a id="#jsModal">30 dages backup historik</a>
+        <i class="far fa-question-circle"></i>
+      </td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr
+      onclick="openModal('Backups placeres på minimum to forskellige fysiske lokationer')"
+      class="jsModalTrigger"
+    >
+      <td>
+        <a id="#jsModal">Offsite Backups</a>
+        <i class="far fa-question-circle"></i>
+      </td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>
+        <a id="#jsModal" href="/intro/app-vs-browser"
+          >Ægte Windows klient</a
+        >
+      </td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>SMS afsendelse</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>SMS afsendelse med eget afsendernavn</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>iOS mobile app</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Android mobile app</td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Brug systemet på flere enheder</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Dansk sprogversion</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr
+      onclick="openModal('Mulighed for at køre applikationen på sprog udover dansk og engelsk')"
+      class="jsModalTrigger"
+    >
+      <td>
+        <a id="#jsModal">Engelsk sprogversion</a>
+        <i class="far fa-question-circle"></i>
+      </td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Custom sprogversion</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Custom fields</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Direkte adgang til databasen (læse)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Direkte adgang til databasen (skrive)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Multivaluta</td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Custom tekster</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>Custom moduler</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><i class="tick fas fa-check"></i></td>
+    </tr>
+    <tr>
+      <td>"Genereret af 360" i bunden af alle dokumenter</td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td><i class="tick fas fa-check"></i></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table></div>
 </div>
 </div>
 </div>
@@ -2955,6 +5845,56 @@ Eventuelle cookies, der måske ikke er særligt nødvendige for at hjemmesiden k
 <script id="elementor-menus-frontend-js-extra">var ElementorMenusFrontendConfig = {"ajaxurl":"\/wp-admin\/admin-ajax.php","nonce":"ad803a56e1"};
 var elementorScreenReaderText = {"expand":"expand child menu","collapse":"collapse child menu"};
 var elementorSecondaryScreenReaderText = {"expand":"expand child menu","collapse":"collapse child menu"};</script>
+ <script>
+  function openModal(text) {
+    const modalText = document.getElementById('modal_txt');
+    modalText.innerHTML = text;
+    let modalTrigger = document.getElementsByClassName('jsModalTrigger');
+    let modalWindow = document.getElementById('jsModal');
+    modalWindow.classList
+      ? modalWindow.classList.add('open')
+      : (modalWindow.className += ' ' + 'open');
+  }
+  function closeModal() {
+    let closeButton = document.getElementById('jsModalClose');
+    let closeOverlay = document.getElementById('jsOverlay');
+    closeButton.onclick = function () {
+      let modalWindow = this.parentNode.parentNode;
+      modalWindow.classList
+        ? modalWindow.classList.remove('open')
+        : (modalWindow.className = modalWindow.className.replace(
+            new RegExp(
+              '(^|\\b)' + 'open'.split(' ').join('|') + '(\\b|$)',
+              'gi'
+            ),
+            ' '
+          ));
+    };
+    closeOverlay.onclick = function () {
+      let modalWindow = this.parentNode;
+      modalWindow.classList
+        ? modalWindow.classList.remove('open')
+        : (modalWindow.className = modalWindow.className.replace(
+            new RegExp(
+              '(^|\\b)' + 'open'.split(' ').join('|') + '(\\b|$)',
+              'gi'
+            ),
+            ' '
+          ));
+    };
+  }
+  (function () {
+    function ready(fn) {
+      if (document.readyState != 'loading') {
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    // ready(openModal);
+    ready(closeModal);
+  })();
+</script>
 <script src="/wp-content/plugins/navmenu-addon-for-elementor/assets/js/frontend.min.js?ver=1.1.6" id="elementor-menus-frontend-js"></script>
 <script src="/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.6.0" id="elementor-webpack-runtime-js"></script>
 <script src="/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.6.0" id="elementor-frontend-modules-js"></script>
